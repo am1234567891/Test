@@ -1,0 +1,57 @@
+{% extends "main/main_base_chart.html" %}  {# main/main_base_chart.html extends app_main_layout_chart.html #}
+
+{% block page_title %}Public page example{% endblock %}
+{% block body %}
+    {{ super() }}
+
+    <!-- bar chart canvas element -->
+    <div id="chartContainer" style="height: 200px; width: 40%;"></div>
+    <p id="caption">The chart is displaying a simple line chart.</p>
+    <div id="performance" style="height: 200px; width: 40%;"></div>
+
+    <script type="text/javascript">
+        window.onload = function() {
+            var dps = [
+                        {% for key,value in data.items() %}
+                            { x: {{key}}, y: {{value}}, link:"http://google.com/?value={{value}}" },
+                        {% endfor %}
+            ];
+
+            var chart = new CanvasJS.Chart("chartContainer",
+                {
+                  data: [
+                  {
+                    type: "column",
+                    cursor:"pointer",
+                    click: onClick,
+                    dataPoints: dps
+                  }
+                  ]
+                });
+
+            var chart_performance = new CanvasJS.Chart("performance",{
+                title :{
+                    text: "Performance"
+                },
+                data: [{
+                type: "line",
+                    dataPoints : [
+                    { label: "apple",  y: 10  },
+                    { label: "orange", y: 15  },
+                    { label: "banana", y: 25  },
+                    { label: "mango",  y: 30  },
+                    { label: "grape",  y: 28  }
+                ]
+                }]
+            });
+
+            chart.render();
+            chart_performance.render();
+
+            function onClick(e){
+                    window.open(e.dataPoint.link,'_blank');
+            };
+        }
+    </script>
+
+{% endblock %}

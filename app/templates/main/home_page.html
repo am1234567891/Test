@@ -1,0 +1,18 @@
+{% extends "main/main_base.html" %}  {# main/main_base.html extends app_main_layout.html #}
+
+{% block page_title %}Welcome{% endblock %}
+{% block body %}
+    {{ super() }}
+
+    <p>This is a minimal web app developed with <a href="https://flask-user.readthedocs.io/en/latest/index.html">Flask-User V1.0</a> framework.</p>
+    <p>It includes</p>
+    <ul>
+        <li>Cusotmized UI: Header, Footer and Menu</li>
+        <li>Basic registration and user access contorl functions using flask-user</li>
+        <li>Error Handling</li>
+        <li>Integrating with Bootstrap</li>
+        <li>Interaction with Database (SQLite)</li>
+        <li>Invoking static resources</li>
+    </ul>
+
+{% endblock %}

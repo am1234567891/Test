@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.united.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <title>{{ user_manager.USER_APP_NAME }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+#toast {
+    visibility: hidden;
+    max-width: 50px;
+    height: 50px;
+    /*margin-left: -125px;*/
+    margin: auto;
+    background-color: #333;
+    color: #fff;
+    text-align: top;
+    border-radius: 2px;
+
+    position: fixed;
+    z-index: 1;
+    left: 0;right:0;
+    top: 30px;
+    font-size: 17px;
+    white-space: nowrap;
+}
+#toast #img{
+	width: 50px;
+	height: 50px;
+
+    float: left;
+
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    box-sizing: border-box;
+
+
+    background-color: #111;
+    color: #fff;
+}
+#toast #desc{
+
+
+    color: #fff;
+
+    padding: 16px;
+
+    overflow: hidden;
+	white-space: nowrap;
+}
+
+#toast.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 2s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, expand 0.5s 0.5s,stay 3s 1s, shrink 0.5s 4s, fadeout 0.5s 4.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes expand {
+    from {min-width: 50px}
+    to {min-width: 350px}
+}
+
+@keyframes expand {
+    from {min-width: 50px}
+    to {min-width: 350px}
+}
+@-webkit-keyframes stay {
+    from {min-width: 350px}
+    to {min-width: 350px}
+}
+
+@keyframes stay {
+    from {min-width: 350px}
+    to {min-width: 350px}
+}
+@-webkit-keyframes shrink {
+    from {min-width: 350px;}
+    to {min-width: 50px;}
+}
+
+@keyframes shrink {
+    from {min-width: 350px;}
+    to {min-width: 50px;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 60px; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 60px; opacity: 0;}
+}
+
+        * {box-sizing: border-box;}
+
+        body {
+          margin: 0;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .topnav {
+          overflow: hidden;
+          background-color: #e9e9e9;
+        }
+
+        .topnav a {
+          float: left;
+          display: block;
+          color: black;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+
+        .topnav a.active {
+          background-color: #ABB2B9;
+          color: white;
+        }
+
+        .topnav .search-container {
+          float: right;
+        }
+
+        .topnav input[type=date] {
+          padding: 2px;
+          margin-top: 4px;
+          font-size: 18px;
+          border: none;
+        }
+
+        .topnav input[type=text] {
+          padding: 6px;
+          margin-top: 8px;
+          font-size: 17px;
+          border: none;
+        }
+
+        .topnav .search-container button {
+          float: right;
+          padding: 6px 10px;
+          margin-top: 8px;
+          margin-right: 16px;
+          background: #ddd;
+          font-size: 17px;
+          border: none;
+          cursor: pointer;
+        }
+
+        .topnav .search-container button:hover {
+          background: #ccc;
+        }
+
+        @media screen and (max-width: 600px) {
+          .topnav .search-container {
+            float: none;
+          }
+          .topnav a, .topnav input[type=date], .topnav input[type=text], .topnav .search-container button {
+            float: none;
+            display: block;
+            text-align: left;
+            width: 100%;
+            margin: 0;
+            padding: 14px;
+          }
+          .topnav input[type=text] {
+            border: 1px solid #ccc;
+          }
+        }
+
+        /* Three image containers (use 33.33% for three, and 50% for two, etc) */
+        .ds-column-4 {
+          float: left;
+          width: 25%;
+          padding: 5px;
+        }
+        .ds-column-2 {
+          float: left;
+          width: 50%;
+          padding: 5px;
+        }
+
+        .ds-column-3 {
+          float: left;
+          width: 33.33%;
+          padding: 5px;
+        }
+
+        /* Clear floats after image containers */
+        .ds-row::after {
+          content: "";
+          clear: both;
+          display: table;
+        }
+        .ds-text-block-green {
+          width: 100px;
+          height: 100px;
+          padding: 1px;
+          background-color: green;
+          color: white;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        .ds-text-block-red {
+          width: 100px;
+          height: 100px;
+          padding: 1px;
+          background-color: red;
+          color: white;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        .ds-text-block-blue {
+          width: 100px;
+          height: 100px;
+          padding: 1px;
+          background-color: blue;
+          color: white;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+        .ds-text-block-gray {
+          width: 100px;
+          height: 100px;
+          padding: 1px;
+          background-color: gray;
+          color: white;
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+    </style>
+
+  </head>
+
+  <body>
+    <script>
+        function launch_toast() {
+            var x = document.getElementById("toast")
+            x.className = "show";
+            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 5000);
+        }
+
+    </script>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">{{ user_manager.USER_APP_NAME }}</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/">{%trans%}Home{%endtrans%}</a></li>
+                {% if call_or_get(current_user.is_authenticated) %}
+                    <li><a href="/member">{%trans%}Dashboard{%endtrans%}</a></li>
+                {% endif%}
+                <li><a href="/public">{%trans%}FAQ{%endtrans%}</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if call_or_get(current_user.is_authenticated) %}
+                    <li><a href="{{ url_for('user.edit_user_profile') }}">{{ current_user.username or current_user.email }}</a></li>
+                    <li><a href="{{ url_for('user.logout') }}">{%trans%}Sign out{%endtrans%}</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('user.login') }}">{%trans%}Sign in{%endtrans%}</a></li>
+                {% endif %}
+            </ul>
+            </div>
+
+        </div>
+    </nav>
+
+    <div id="main-div" class="with-margins">
+    {# One-time system messages called Flash messages #}
+    {% block flash_messages %}
+        {%- with messages = get_flashed_messages(with_categories=true) -%}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category=='error' %}
+                        {% set category='danger' %}
+                    {% endif %}
+                    <hr class="no-margins"/>
+                    <div class="alert alert-{{category}}">{{ message|safe }}</div>
+                {% endfor %}
+            {% endif %}
+        {%- endwith %}
+    {% endblock %}
+    </div>
+
+    <div class="container">
+
+      <h1>{% block page_title %}{% endblock %}</h1>
+
+      <p>{% block body %}{% endblock %}</p>
+
+    </div>
+
+    <div class='container'>
+        <br/>
+        <hr class="no-margins"/>
+        <div id="footer-div" class="clearfix with-margins">
+            <div class="pull-left">{{ user_manager.USER_APP_NAME }}</div>
+            <div class="pull-right">&copy; 2020
+                <img src="{{ url_for('static', filename='img/cif_logo.png') }}" width="50%" alt="CodingIsFun" >
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
