@@ -1,9 +1,9 @@
-# flask quick starter
+# Flask quick starter
 This starter is to setup flask app in your PyCharm quickly. 
 
 It uses the "Flask-User starter app v1.0" from https://github.com/lingthio/Flask-User-starter-app as starting point,
 
-Setup steps:
+## Setup steps:
 1. Open PyCharm and select:
     * Get from Version Control
 2. Clone from GitHub
