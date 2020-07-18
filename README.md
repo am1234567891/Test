@@ -5,15 +5,13 @@ It uses the "Flask-User starter app v1.0" from https://github.com/lingthio/Flask
 
 Setup steps:
 1. Open PyCharm and select:
-  Get from Version Control
+    * Get from Version Control
 2. Clone from GitHub
-  Enter URL: https://github.com/codingisfun2/cifwebmaster.git
-  Click Clone
+    * Enter URL: https://github.com/codingisfun2/cifwebmaster.git
+    * Click Clone
 3. Opend PyCharm terminal:
-    Install python libraries
-        pip install -r requirements.txt
-    Initial database
-        python manage.py init_db 
+    * Install python libraries: pip install -r requirements.txt
+    * Initial database: python manage.py init_db 
    
 
 ## Acknowledgements
