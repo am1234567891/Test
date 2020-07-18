@@ -9,7 +9,7 @@ Setup steps:
 2. Clone from GitHub
   Enter URL: https://github.com/codingisfun2/cifwebmaster.git
   Click Clone
-3. Install python libraries in PyCharm terminal: pip install -r requirements.txt
+
 
 ## Acknowledgements
 
