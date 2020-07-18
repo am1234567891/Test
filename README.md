@@ -9,13 +9,12 @@ Setup steps:
 2. Clone from GitHub
   Enter URL: https://github.com/codingisfun2/cifwebmaster.git
   Click Clone
-3. install python libraries
-    pip install -r requirements.txt
-4. Open PyCharm terminal:
-    Get from Version Control
-2. Clone from GitHub
-    Enter URL:    https://github.com/codingisfun2/cifwebmaster.git
-    Click Clone    
+3. Opend PyCharm terminal:
+    Install python libraries
+        pip install -r requirements.txt
+    Initial database
+        python manage.py init_db 
+   
 
 ## Acknowledgements
 
