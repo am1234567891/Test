@@ -11,6 +11,8 @@ Setup steps:
 3. install python libraries
     pip install -r requirements.txt
     
+    (if you don't have pip, please refer to: )
+    
     
 
 The code has been organized into the following sub-directories:
