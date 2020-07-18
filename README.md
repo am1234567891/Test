@@ -17,4 +17,4 @@ With thanks to the following Flask extensions:
 * [Flask-Script](https://flask-script.readthedocs.io/)
 * [Flask-User](http://flask-user.readthedocs.io/en/v0.6/)
 
-Coding Is Fun Admin Team
+
