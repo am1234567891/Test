@@ -23,9 +23,9 @@ MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 465
 MAIL_USE_SSL = True
 MAIL_USE_TLS = False
-MAIL_USERNAME = 'cifwebdev@gmail.com'
-MAIL_PASSWORD = 'cifun@CA20'
-MAIL_DEFAULT_SENDER = 'cifwebdev@gmail.com'
+MAIL_USERNAME = 'your email address'
+MAIL_PASSWORD = 'your password'
+MAIL_DEFAULT_SENDER = 'your email address'
 
 # Sendgrid settings
 SENDGRID_API_KEY='place-your-sendgrid-api-key-here'
