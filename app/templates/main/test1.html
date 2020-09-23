@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+        <script src="{{ url_for('static', filename='bootstrap/js/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+        <title>{{ user_manager.USER_APP_NAME }}</title>
+
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-sm bg-info navbar-dark">
+            <!-- Brand/logo -->
+            <a class="navbar-brand" href="#">{{ user_manager.USER_APP_NAME }}</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <!-- Links -->
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">{%trans%}Home{%endtrans%}</a>
+                    </li>
+                    {% if call_or_get(current_user.is_authenticated) %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/member">{%trans%}Dashboard{%endtrans%}</a>
+                        </li>
+                    {% endif%}
+                    <li class="nav-item"><a class="nav-link" href="/public">{%trans%}FAQ{%endtrans%}</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/cifun">{%trans%}CIF{%endtrans%}</a></li>
+                </ul>
+                <ul class="navbar-nav">
+                    {% if call_or_get(current_user.is_authenticated) %}
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('user.edit_user_profile') }}">{{ current_user.username or current_user.email }}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('user.logout') }}">{%trans%}Sign out{%endtrans%}</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('user.login') }}">{%trans%}Sign in{%endtrans%}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+
+        <div id="main-div" class="with-margins">
+        {# One-time system messages called Flash messages #}
+        {% block flash_messages %}
+            {%- with messages = get_flashed_messages(with_categories=true) -%}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category=='error' %}
+                            {% set category='danger' %}
+                        {% endif %}
+                        <hr class="no-margins"/>
+                        <div class="alert alert-{{category}}">{{ message|safe }}</div>
+                    {% endfor %}
+                {% endif %}
+            {%- endwith %}
+        {% endblock %}
+        </div>
+
+        <div class="container" style="margin-top:30px">
+            <h1>{% block page_title %}{% endblock %}</h1>
+            <p>{% block body %}{% endblock %}</p>
+        </div>
+
+        <div class='container'>
+            <br/>
+            <hr class="no-margins"/>
+            <div id="footer-div" class="clearfix with-margins">
+                <div style="float:left;">{{ user_manager.USER_APP_NAME }}</div>
+                <div style="float:right;">&copy; 2020
+                    <img src="{{ url_for('static', filename='img/cif_logo.png') }}" width="50%" alt="Coding Is Fun" >
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

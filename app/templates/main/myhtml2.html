@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static', filename='bootstrap/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="row">
+  <div class="col-lg-2"></div>
+  <div class="col-lg-8">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Row</th>
+        <th>Title</th>
+        <th>Price</th>
+        <th>Author's First Name</th>
+        <th>Author's Last Name</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for book in booklist %}
+      <tr>
+        <td>{{ book[0] }}</td>
+        <td>{{ book[1] }}</td>
+        <td>{{ book[2] }}</td>
+        <td>{{ book[3] }}</td>
+        <td>{{ book[4] }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  </div>
+  <div class="col-lg-2"></div>
+</div>
+</body>
+</html>
