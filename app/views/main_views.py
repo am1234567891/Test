@@ -1,8 +1,10 @@
 from flask import Blueprint, redirect, render_template
-from flask import request, url_for
+from flask import request, url_for, current_app
 from flask_user import current_user, login_required, roles_required
 from app import db
 from app.models.user_models import UserProfileForm
+from app.models import db_functions
+from app.forms import app_forms
 
 main_blueprint = Blueprint('main', __name__, template_folder='templates')
 
@@ -43,14 +45,39 @@ def home_page():
 @main_blueprint.route('/public')
 def pubic_page():
     data = { 10: 30, 20: 40, 30: 50, 40:70, 50: 80 }
-    return render_template('main/public_page.html',data=data)
+    return render_template('main/test1.html',data=data)
 
 
-# hello world
-@main_blueprint.route('/cifun')
-def hello_world():
-    return "Hello, World!"
-    # return render_template('main/cifun.html')
+# ---------------------------------------------------------------------
+# Create the necessary controller(s) for your assignment
+# Create Book - For Your Reference
+@main_blueprint.route('/assignmentexample', methods=['GET', 'POST'])
+def assignment():
+    # Inititalize form
+    form = app_forms.bookForm(request.form)
+    # Get db location
+    app_db_web_location = current_app.config['SQLALCHEMY_DATABASE_URI']
+    print(1)
+    if request.method == 'POST':
+        print(2)
+        title = request.form.get('title')
+        price = request.form.get('price')
+        author_fname = request.form.get('author_fname')
+        author_lname = request.form.get('author_lname')
+        db_functions.add_book(title, price, author_fname, author_lname, app_db_web_location)
+        print(3)
+        booklist = db_functions.show_all(app_db_web_location)
+        return render_template('main/myhtml2.html', booklist=booklist)
+    else:
+        return render_template('main/myhtml.html', form=form)
+
+
+@main_blueprint.route('/test1', methods=['GET', 'POST'])
+def test1():
+    app_db_web_location = current_app.config['SQLALCHEMY_DATABASE_URI']
+    booklist = db_functions.show_all(app_db_web_location)
+    return render_template('main/myhtml2.html', booklist=booklist)
+# -------------------------------------------------------------------------------------------------------------------
 
 
 # The User page is accessible to authenticated users (users that have logged in)
